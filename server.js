@@ -26,6 +26,9 @@ const server = http.createServer((req, res) => {
 
   try {
     stats = fs.lstatSync(fileName); // if the fileName exists, e.g. "/about-us"
+    console.log("URI: ", uri);
+    console.log("File Name: ", fileName);
+    console.log("Stats: ", stats);
   } catch (e) {
     // if it doesnt find the file, just send 404
     res.writeHead(404, { "Content-type": "text/plain" });
@@ -40,6 +43,7 @@ const server = http.createServer((req, res) => {
 
     // create read stream
     var fileStream = fs.createReadStream(fileName); // allow you to open up a file/stream and read the data present in it.
+    console.log("File stream: ", fileStream);
     fileStream.pipe(res); // write the content of fileName to response
   } else if (stats.isDirectory()) {
     res.writeHead(302, { Location: "index.html" });
